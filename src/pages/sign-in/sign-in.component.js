@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -130,7 +130,11 @@ export default function SignIn() {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href="#" variant="body2" style={{ color: "green" }}>
+                    <Link
+                      href="/homepage"
+                      variant="body2"
+                      style={{ color: "green" }}
+                    >
                       Continue as Guest
                     </Link>
                   </Grid>
