@@ -1,4 +1,4 @@
-import * as React from "react";
+import { React, useContext } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import { Context } from "../../pages/store/store.component";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,6 +52,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Navbar() {
+  const [state, dispatch] = useContext(Context);
+  let user = state.currentUser;
   return (
     <Box
       sx={{
@@ -76,7 +79,7 @@ export default function Navbar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            Happy Holidays!
+            Happy Holidays {user.firstName ? user.firstName : " "}
           </Typography>
           <Search>
             <SearchIconWrapper>

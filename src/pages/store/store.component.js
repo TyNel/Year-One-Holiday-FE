@@ -1,8 +1,11 @@
 import React, { createContext, useReducer } from "react";
-import Reducer from "./reducer/reducer.component.js";
+import Reducer from "../reducer/reducer.component";
+
+const localUser = localStorage.getItem("user");
+console.log(localUser);
 
 const INITIAL_STATE = {
-  currentUser: "",
+  currentUser: localUser === undefined ? localUser : "",
   cookies: [],
   recipes: [],
 };

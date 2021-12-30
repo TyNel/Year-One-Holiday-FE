@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useContext } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -13,10 +13,44 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
+import { Context } from "../store/store.component";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignIn() {
+  const [state, dispatch] = useContext(Context);
+  const navigate = useNavigate();
+
+  const onSubmit = async (values) => {
+    try {
+      const userLogin = await axios.post(
+        "https://localhost:5001/api/cookies/login",
+        values
+      );
+      console.log(userLogin.data);
+      if (userLogin.status === 200) {
+        localStorage.setItem("user", JSON.stringify(userLogin.data));
+        dispatch({
+          type: "SET_USER",
+          payload: userLogin.data,
+        });
+        const getcookies = await axios.get(
+          "https://localhost:5001/api/cookies/cookieType"
+        );
+        if (getcookies.status === 200) {
+          dispatch({
+            type: "SET_COOKIES",
+            payload: getcookies.data,
+          });
+          navigate("/homepage");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const validationSchema = yup.object({
     email: yup
       .string("Please enter your email")
@@ -27,21 +61,6 @@ export default function SignIn() {
       .min(8, "Password must be at least 8 characters")
       .required("Password is required"),
   });
-
-  const onSubmit = async (values) => {
-    console.log(values);
-    try {
-      const response = await axios.post(
-        "https://localhost:5001/api/cookies/login",
-        values
-      );
-      if (response.status === 200) {
-        console.log(response);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const initialValues = {
     email: "",

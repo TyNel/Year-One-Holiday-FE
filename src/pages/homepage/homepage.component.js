@@ -1,19 +1,35 @@
-import * as React from "react";
+import { React, useEffect, useContext } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Navbar from "../../components/navbar/navbar.component";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CookieOverview from "../../components/cookie-overview/cookie-overview.component";
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+import Navbar from "../../components/navbar/navbar.component";
+import { Context } from "../store/store.component";
+import axios from "axios";
 
 const theme = createTheme();
 
-export default function Album() {
+export default function Homepage() {
+  const [state, dispatch] = useContext(Context);
+
+  useEffect(() => {
+    if (state.cookies.length === 0) {
+      async function getCookies() {
+        let response = await axios.get(
+          "https://localhost:5001/api/cookies/cookieType"
+        );
+        dispatch({
+          type: "SET_COOKIES",
+          payload: response.data,
+        });
+      }
+      getCookies();
+    }
+  });
   return (
     <ThemeProvider theme={theme}>
       <Navbar position="relative" />
@@ -58,9 +74,12 @@ export default function Album() {
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <CookieOverview />
+            {state.cookies.map((cookie) => (
+              <Grid item key={cookie.cookieId} xs={12} sm={6} md={4}>
+                <CookieOverview
+                  cookieName={cookie.cookieName}
+                  imageUrl={cookie.cookieImageUrl}
+                />
               </Grid>
             ))}
           </Grid>
