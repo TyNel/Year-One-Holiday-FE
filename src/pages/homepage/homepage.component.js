@@ -4,14 +4,11 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CookieOverview from "../../components/cookie-overview/cookie-overview.component";
 import Navbar from "../../components/navbar/navbar.component";
 import { Context } from "../store/store.component";
 import axios from "axios";
 import CookieForm from "../../components/cookie-form/cookie-form.component";
-
-const theme = createTheme();
 
 export default function Homepage() {
   const [state, dispatch] = useContext(Context);
@@ -31,7 +28,7 @@ export default function Homepage() {
     }
   });
   return (
-    <ThemeProvider theme={theme}>
+    <div>
       <Navbar position="relative" />
       <main>
         <Box
@@ -85,6 +82,6 @@ export default function Homepage() {
           </Grid>
         </Container>
       </main>
-    </ThemeProvider>
+    </div>
   );
 }
