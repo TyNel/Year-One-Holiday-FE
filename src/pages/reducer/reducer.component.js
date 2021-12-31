@@ -10,6 +10,11 @@ const Reducer = (state, action) => {
         ...state,
         currentUser: action.payload,
       };
+    case "SET_RECIPES":
+      return {
+        ...state,
+        recipes: action.payload,
+      };
     default:
       return state;
   }

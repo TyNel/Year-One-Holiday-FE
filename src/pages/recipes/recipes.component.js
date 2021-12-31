@@ -1,4 +1,4 @@
-import { React, useEffect, useContext } from "react";
+import { useContext } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
@@ -6,31 +6,15 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CookieOverview from "../../components/cookie-overview/cookie-overview.component";
+import RecipeItem from "../../components/recipe/recipe.component";
 import Navbar from "../../components/navbar/navbar.component";
 import { Context } from "../store/store.component";
-import axios from "axios";
-import CookieForm from "../../components/cookie-form/cookie-form.component";
 
 const theme = createTheme();
 
-export default function Homepage() {
+export default function Recipes() {
   const [state, dispatch] = useContext(Context);
 
-  useEffect(() => {
-    if (state.cookies.length === 0) {
-      async function getCookies() {
-        let response = await axios.get(
-          "https://localhost:5001/api/cookies/cookieType"
-        );
-        dispatch({
-          type: "SET_COOKIES",
-          payload: response.data,
-        });
-      }
-      getCookies();
-    }
-  });
   return (
     <ThemeProvider theme={theme}>
       <Navbar position="relative" />
@@ -50,7 +34,7 @@ export default function Homepage() {
               color="text.primary"
               gutterBottom
             >
-              Cookie Recipe Book
+              Album layout
             </Typography>
             <Typography
               variant="h5"
@@ -58,9 +42,9 @@ export default function Homepage() {
               color="text.secondary"
               paragraph
             >
-              I think most people can agree that there is at least one cookie
-              they enjoy. So I created an app that allows people to share and
-              add their favorite cookies along with different recipes.
+              Something short and leading about the collection below—its
+              contents, the creator, etc. Make it short and sweet, but not too
+              short so folks don&apos;t simply skip over it entirely.
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -68,20 +52,15 @@ export default function Homepage() {
               spacing={2}
               justifyContent="center"
             >
-              <CookieForm />
-              <Button variant="outlined">View all recipes</Button>
+              <Button variant="contained">Add Recipe</Button>
             </Stack>
           </Container>
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
-            {state.cookies.map((cookie) => (
-              <Grid item key={cookie.cookieId} xs={12} sm={6} md={4}>
-                <CookieOverview
-                  cookieName={cookie.cookieName}
-                  imageUrl={cookie.cookieImageUrl}
-                  id={cookie.cookieId}
-                />
+            {state.recipes.map((recipe) => (
+              <Grid item key={recipe.recipeId} xs={12} sm={6} md={4}>
+                <RecipeItem />
               </Grid>
             ))}
           </Grid>
