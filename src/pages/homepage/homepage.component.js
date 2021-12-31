@@ -1,5 +1,4 @@
 import { React, useEffect, useContext } from "react";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -69,7 +68,6 @@ export default function Homepage() {
               justifyContent="center"
             >
               <CookieForm />
-              <Button variant="outlined">View all recipes</Button>
             </Stack>
           </Container>
         </Box>

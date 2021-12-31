@@ -54,14 +54,13 @@ export default function CookieForm() {
         values
       );
       if (response.status === 200) {
+        console.log("Cookie Added!");
         let currentCookies = [...state.cookies];
         currentCookies.push(response.data);
-
         dispatch({
           type: "SET_COOKIES",
           payload: currentCookies,
         });
-
         handleClose();
       }
     } catch (error) {
@@ -74,9 +73,6 @@ export default function CookieForm() {
     validationSchema,
     onSubmit,
   });
-
-  console.log(formik.values);
-  console.log(state.cookies);
 
   return (
     <div>

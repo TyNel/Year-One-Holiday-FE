@@ -21,13 +21,28 @@ export default function CookieOverview({ cookieName, imageUrl, id }) {
           params: { id },
         }
       );
-      console.log(response);
       if (response.status === 200) {
         dispatch({
           type: "SET_RECIPES",
           payload: response.data,
         });
-        navigate(`/recipes/${id}`);
+        try {
+          const likes = await axios.get(
+            "https://localhost:5001/api/cookies/recipe/liked",
+            {
+              params: { id },
+            }
+          );
+          if (likes.status === 200) {
+            dispatch({
+              type: "SET_LIKED",
+              payload: likes.data,
+            });
+            navigate(`/recipes/${id}`);
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
     } catch (error) {
       console.log(error);

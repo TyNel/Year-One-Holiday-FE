@@ -15,6 +15,11 @@ const Reducer = (state, action) => {
         ...state,
         recipes: action.payload,
       };
+    case "SET_LIKED":
+      return {
+        ...state,
+        likedCount: action.payload,
+      };
     default:
       return state;
   }

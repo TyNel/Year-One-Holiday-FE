@@ -19,6 +19,40 @@ import { useNavigate } from "react-router-dom";
 const theme = createTheme();
 
 export default function SignIn() {
+  const guestUser = {
+    email: "Guest@test.com",
+    password: "happyholidays!",
+  };
+
+  const onGuestClicked = async () => {
+    try {
+      const guestLogin = await axios.post(
+        "https://localhost:5001/api/cookies/login",
+        guestUser
+      );
+      if (guestLogin.status === 200) {
+        localStorage.setItem("user", JSON.stringify(guestLogin.data));
+        dispatch({
+          type: "SET_USER",
+          payload: guestLogin.data,
+        });
+        const getcookies = await axios.get(
+          "https://localhost:5001/api/cookies/cookieType"
+        );
+        if (getcookies.status === 200) {
+          localStorage.setItem("cookies", JSON.stringify(getcookies.data));
+          dispatch({
+            type: "SET_COOKIES",
+            payload: getcookies.data,
+          });
+          navigate("/homepage");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [state, dispatch] = useContext(Context);
   const navigate = useNavigate();
 
@@ -39,6 +73,7 @@ export default function SignIn() {
           "https://localhost:5001/api/cookies/cookieType"
         );
         if (getcookies.status === 200) {
+          localStorage.setItem("cookies", JSON.stringify(getcookies.data));
           dispatch({
             type: "SET_COOKIES",
             payload: getcookies.data,
@@ -150,9 +185,9 @@ export default function SignIn() {
                 <Grid container>
                   <Grid item xs>
                     <Link
-                      href="/homepage"
                       variant="body2"
                       style={{ color: "green" }}
+                      onClick={onGuestClicked}
                     >
                       Continue as Guest
                     </Link>

@@ -46,7 +46,6 @@ export default function SignUp() {
   });
 
   const onSubmit = async (values) => {
-    console.log(values);
     try {
       const response = await axios.post(
         "https://localhost:5001/api/cookies/addUser",
@@ -54,6 +53,7 @@ export default function SignUp() {
       );
       if (response.status === 200) {
         console.log(response);
+        alert("Register Successful!");
         navigate("/signin");
       }
     } catch (error) {

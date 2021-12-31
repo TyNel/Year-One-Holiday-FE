@@ -37,9 +37,8 @@ export default function RecipeForm(props) {
     cookieType: id,
     url: "",
     description: "",
+    websiteName: "",
   };
-
-  console.log(state.recipes);
 
   const validationSchema = yup.object({
     url: yup
@@ -47,6 +46,10 @@ export default function RecipeForm(props) {
       .url("Url is not valid")
       .required("Image is required"),
     description: yup.string("Please enter description"),
+    websiteName: yup
+      .string("Please enter website name")
+      .min(2, "Website name must be at least 2 characters")
+      .required("Website name required"),
   });
 
   const onSubmit = async (values) => {
@@ -56,9 +59,9 @@ export default function RecipeForm(props) {
         values
       );
       if (response.status === 200) {
+        console.log("Recipe Added!");
         let currentRecipes = [...state.recipes];
         currentRecipes.push(response.data);
-
         dispatch({
           type: "SET_RECIPES",
           payload: currentRecipes,
@@ -75,8 +78,6 @@ export default function RecipeForm(props) {
     validationSchema,
     onSubmit,
   });
-
-  console.log(formik.values);
 
   return (
     <div>
@@ -114,6 +115,21 @@ export default function RecipeForm(props) {
               }
               helperText={
                 formik.touched.description && formik.errors.description
+              }
+            />
+            <TextField
+              margin="normal"
+              fullWidth
+              color="success"
+              label="Website Name"
+              name="websiteName"
+              value={formik.values.websiteName}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.websiteName && Boolean(formik.errors.websiteName)
+              }
+              helperText={
+                formik.touched.websiteName && formik.errors.websiteName
               }
             />
             <Button

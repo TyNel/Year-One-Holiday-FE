@@ -1,13 +1,13 @@
 import React, { createContext, useReducer } from "react";
 import Reducer from "../reducer/reducer.component";
 
-const localUser = localStorage.getItem("user");
-console.log(localUser);
+const localUser = JSON.parse(localStorage.getItem("user"));
 
 const INITIAL_STATE = {
   currentUser: localUser === undefined ? localUser : "",
   cookies: [],
   recipes: [],
+  likedCount: [],
 };
 
 const Store = ({ children }) => {
