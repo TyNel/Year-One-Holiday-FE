@@ -21,7 +21,7 @@ export default function Recipes() {
     if (state.recipes.length === 0) {
       async function getRecipes() {
         let response = await axios.get(
-          "https://localhost:5001/api/cookies/recipe",
+          "https://yearonewebapi.azurewebsites.net/api/cookies/recipe",
           {
             params: { id },
           }
