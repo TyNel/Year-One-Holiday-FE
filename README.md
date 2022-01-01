@@ -2,4 +2,17 @@
 
 ## [Backend repo can be found here](https://github.com/TyNel/Year-One-Holiday-BE)
 
+## Description
+
+I created this app so that users could add and like recipes of their favorite cookies. The goal is for it to be simple and clean but still have plenty of functionality. Some additional features I would like to add would be to edit recipes from the recipe page. Have a share link for a recipe. Search bar to search for a specific cookie or recipe.
+
+## Functions
+
+1.Add Cookie
+2.Add Recipe
+3.Upvote Recipe
+4.Downvote Recipe
+
+## Image of dashboard can be seen below
+
 ![image of dashboard](src/assests/screenshots/cookieapppreview.PNG)
