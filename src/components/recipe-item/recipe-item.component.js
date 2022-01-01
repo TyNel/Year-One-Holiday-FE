@@ -31,8 +31,8 @@ export default function RecipeItem({ imageUrl, description, url, name, id }) {
             : description}
         </Typography>
       </CardContent>
-      <CardActions sx={{ display: "flex" }}>
-        <IconButton aria-label="add to favorites">
+      <CardActions sx={{ display: "flex", justify: "space-between" }}>
+        <IconButton>
           <UserLiked id={id} />
         </IconButton>
       </CardActions>
