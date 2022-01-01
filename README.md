@@ -8,10 +8,10 @@ I created this app so that users could add and like recipes of their favorite co
 
 ## Functions
 
-*Add Cookie
-⋅⋅*2.Add Recipe
-⋅⋅*3.Upvote Recipe
-⋅⋅*4.Downvote Recipe
+- Add Cookie
+- 2.Add Recipe
+- 3.Upvote Recipe
+- 4.Downvote Recipe
 
 ## Image of dashboard can be seen below
 
