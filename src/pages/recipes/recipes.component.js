@@ -17,44 +17,6 @@ export default function Recipes() {
     ? state.cookies[id - 1].cookieImageUrl
     : "";
 
-  useEffect(() => {
-    if (state.recipes.length === 0) {
-      async function getRecipes() {
-        let response = await axios.get(
-          "https://yearonewebapi.azurewebsites.net/api/cookies/recipe",
-          {
-            params: { id },
-          }
-        );
-        if (response.status === 200) {
-          dispatch({
-            type: "SET_RECIPES",
-            payload: response.data,
-          });
-        }
-      }
-      getRecipes();
-    }
-  });
-
-  useEffect(() => {
-    async function getLikes() {
-      const likes = await axios.get(
-        "https://yearonewebapi.azurewebsites.net/api/cookies/recipe/liked",
-        {
-          params: { id },
-        }
-      );
-      if (likes.status === 200) {
-        dispatch({
-          type: "SET_LIKED",
-          payload: likes.data,
-        });
-      }
-    }
-    getLikes();
-  });
-
   return (
     <div>
       <Navbar position="relative" />
