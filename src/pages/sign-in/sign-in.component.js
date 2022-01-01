@@ -56,7 +56,7 @@ export default function SignIn() {
   const onSubmit = async (values) => {
     try {
       const userLogin = await axios.post(
-        "https://yearonewebapi.azurewebsites.net/cookies/login",
+        "https://yearonewebapi.azurewebsites.net/api/cookies/login",
         values
       );
       console.log(userLogin.data);
