@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 export default function SignIn() {
   const guestUser = {
     email: "Guest@test.com",
-    password: "happyholidays!",
+    password: "happyholidays",
   };
 
   const onGuestClicked = async () => {
