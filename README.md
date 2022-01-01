@@ -2,4 +2,4 @@
 
 ## [Backend repo can be found here](https://github.com/TyNel/Year-One-Holiday-BE)
 
-<img src="../src/assests/screenshots/cookieappreview.PNG"
+![image of dashboard]("src\assests\screenshots\cookieapppreview.PNG")
