@@ -56,7 +56,7 @@ export default function SignIn() {
   const onSubmit = async (values) => {
     try {
       const userLogin = await axios.post(
-        "https://localhost:5001/api/cookies/login",
+        "https://yearonewebapi.azurewebsites.net/cookies/login",
         values
       );
       console.log(userLogin.data);
@@ -67,7 +67,7 @@ export default function SignIn() {
           payload: userLogin.data,
         });
         const getcookies = await axios.get(
-          "https://localhost:5001/api/cookies/cookieType"
+          "https://yearonewebapi.azurewebsites.net/api/cookies/cookieType"
         );
         if (getcookies.status === 200) {
           localStorage.setItem("cookies", JSON.stringify(getcookies.data));
