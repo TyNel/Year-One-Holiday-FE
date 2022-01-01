@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import FormControl from "@mui/material/FormControl";
+import { toast } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -59,7 +60,7 @@ export default function RecipeForm(props) {
         values
       );
       if (response.status === 200) {
-        console.log("Recipe Added!");
+        toast.success("Recipe Added");
         let currentRecipes = [...state.recipes];
         currentRecipes.push(response.data);
         dispatch({
@@ -69,6 +70,7 @@ export default function RecipeForm(props) {
         handleClose();
       }
     } catch (error) {
+      toast.error("Recipe Add Error");
       console.log(error);
     }
   };

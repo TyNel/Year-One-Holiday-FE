@@ -13,6 +13,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -49,11 +50,13 @@ export default function SignUp() {
         values
       );
       if (response.status === 200) {
+        toast.success("Register Successful");
         console.log(response);
         alert("Register Successful!");
         navigate("/signin");
       }
     } catch (error) {
+      toast.error("Register Failed");
       console.log(error);
     }
   };

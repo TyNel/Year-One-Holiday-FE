@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import FormControl from "@mui/material/FormControl";
+import { toast } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -54,7 +55,7 @@ export default function CookieForm() {
         values
       );
       if (response.status === 200) {
-        console.log("Cookie Added!");
+        toast.success("Cookie Added");
         let currentCookies = [...state.cookies];
         currentCookies.push(response.data);
         dispatch({
@@ -64,6 +65,7 @@ export default function CookieForm() {
         handleClose();
       }
     } catch (error) {
+      toast.error("Cookie Add Error");
       console.log(error);
     }
   };

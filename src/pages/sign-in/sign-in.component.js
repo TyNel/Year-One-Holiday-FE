@@ -14,6 +14,7 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { Context } from "../store/store.component";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function SignIn() {
   const guestUser = {
@@ -28,6 +29,7 @@ export default function SignIn() {
         guestUser
       );
       if (guestLogin.status === 200) {
+        toast.success("Login Successful");
         localStorage.setItem("user", JSON.stringify(guestLogin.data));
         dispatch({
           type: "SET_USER",
@@ -46,6 +48,7 @@ export default function SignIn() {
         }
       }
     } catch (error) {
+      toast.error("Login Failed");
       console.log(error);
     }
   };
@@ -59,8 +62,8 @@ export default function SignIn() {
         "https://yearonewebapi.azurewebsites.net/api/cookies/login",
         values
       );
-      console.log(userLogin.data);
       if (userLogin.status === 200) {
+        toast.success("Login Successful");
         localStorage.setItem("user", JSON.stringify(userLogin.data));
         dispatch({
           type: "SET_USER",
@@ -79,6 +82,7 @@ export default function SignIn() {
         }
       }
     } catch (error) {
+      toast.error("Login Failed");
       console.log(error);
     }
   };
