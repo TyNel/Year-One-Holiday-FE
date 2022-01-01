@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -6,7 +6,6 @@ import RecipeItem from "../../components/recipe-item/recipe-item.component";
 import Navbar from "../../components/navbar/navbar.component";
 import { Context } from "../store/store.component";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import Typography from "@mui/material/Typography";
 
 export default function Recipes() {
