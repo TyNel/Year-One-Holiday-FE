@@ -16,7 +16,7 @@ export default function CookieOverview({ cookieName, imageUrl, id }) {
   const onClick = async () => {
     try {
       const response = await axios.get(
-        "https://localhost:5001/api/cookies/recipe",
+        "https://yearonewebapi.azurewebsites.net/api/cookies/recipe",
         {
           params: { id },
         }
@@ -28,7 +28,7 @@ export default function CookieOverview({ cookieName, imageUrl, id }) {
         });
         try {
           const likes = await axios.get(
-            "https://localhost:5001/api/cookies/recipe/liked",
+            "https://yearonewebapi.azurewebsites.net/api/cookies/recipe/liked",
             {
               params: { id },
             }

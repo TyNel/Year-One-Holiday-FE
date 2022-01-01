@@ -50,7 +50,7 @@ export default function CookieForm() {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/cookies/addCookie",
+        "https://yearonewebapi.azurewebsites.net/api/cookies/addCookie",
         values
       );
       if (response.status === 200) {

@@ -17,7 +17,7 @@ export default function Homepage() {
     if (state.cookies.length === 0) {
       async function getCookies() {
         let response = await axios.get(
-          "https://localhost:5001/api/cookies/cookieType"
+          "https://yearonewebapi.azurewebsites.net/api/cookies/cookieType"
         );
         dispatch({
           type: "SET_COOKIES",

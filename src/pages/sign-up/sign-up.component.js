@@ -45,7 +45,7 @@ export default function SignUp() {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/cookies/addUser",
+        "https://yearonewebapi.azurewebsites.net/api/cookies/addUser",
         values
       );
       if (response.status === 200) {

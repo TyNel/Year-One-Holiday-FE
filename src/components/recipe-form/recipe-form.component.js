@@ -55,7 +55,7 @@ export default function RecipeForm(props) {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/cookies/addRecipe",
+        "https://yearonewebapi.azurewebsites.net/api/cookies/addRecipe",
         values
       );
       if (response.status === 200) {

@@ -41,7 +41,7 @@ export default function UserLiked({ id }) {
   const onClick = async () => {
     const data = likeData;
     const response = await axios.post(
-      "https://localhost:5001/api/cookies/liked",
+      "https://yearonewebapi.azurewebsites.net/api/cookies/liked",
       data
     );
     if (response.status === 200) {
@@ -58,7 +58,7 @@ export default function UserLiked({ id }) {
   const onDislikeClick = async () => {
     const data = dislikeData;
     const response = await axios.post(
-      "https://localhost:5001/api/cookies/liked",
+      "https://yearonewebapi.azurewebsites.net/api/cookies/liked",
       data
     );
     if (response.status === 200) {

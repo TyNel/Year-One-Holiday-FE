@@ -40,7 +40,7 @@ export default function Recipes() {
   useEffect(() => {
     async function getLikes() {
       const likes = await axios.get(
-        "https://localhost:5001/api/cookies/recipe/liked",
+        "https://yearonewebapi.azurewebsites.net/api/cookies/recipe/liked",
         {
           params: { id },
         }
