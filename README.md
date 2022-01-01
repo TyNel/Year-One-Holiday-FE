@@ -1,3 +1,3 @@
-# YEARONE HOLIDAY CHALLENGE - COOKIE RECIPE BOOK
+# YearOne Holiday Challenge - Cookie Recipe App
 
-## [BACKEND REPO CAN BE FOUND HERE](https://github.com/TyNel/Year-One-Holiday-BE)
+## [Backend repo can be found here](https://github.com/TyNel/Year-One-Holiday-BE)
