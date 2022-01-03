@@ -1,4 +1,4 @@
-import { React, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -7,26 +7,11 @@ import Container from "@mui/material/Container";
 import CookieOverview from "../../components/cookie-overview/cookie-overview.component";
 import Navbar from "../../components/navbar/navbar.component";
 import { Context } from "../store/store.component";
-import axios from "axios";
 import CookieForm from "../../components/cookie-form/cookie-form.component";
 
 export default function Homepage() {
   const [state, dispatch] = useContext(Context);
 
-  useEffect(() => {
-    if (state.cookies.length === 0) {
-      async function getCookies() {
-        let response = await axios.get(
-          "https://yearonewebapi.azurewebsites.net/api/cookies/cookieType"
-        );
-        dispatch({
-          type: "SET_COOKIES",
-          payload: response.data,
-        });
-      }
-      getCookies();
-    }
-  });
   return (
     <div>
       <Navbar position="relative" />

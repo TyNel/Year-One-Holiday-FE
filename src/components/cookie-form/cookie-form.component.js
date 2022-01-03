@@ -58,6 +58,7 @@ export default function CookieForm() {
         toast.success("Cookie Added");
         let currentCookies = [...state.cookies];
         currentCookies.push(response.data);
+        localStorage.setItem("cookies", JSON.stringify(currentCookies));
         dispatch({
           type: "SET_COOKIES",
           payload: currentCookies,

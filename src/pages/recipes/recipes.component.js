@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -10,11 +10,7 @@ import Typography from "@mui/material/Typography";
 
 export default function Recipes() {
   const [state, dispatch] = useContext(Context);
-  const localStorageCookies = JSON.parse(localStorage.getItem("cookies"));
   const { id } = useParams();
-  const currentCookie = state.cookies.length
-    ? state.cookies[id - 1].cookieImageUrl
-    : "";
 
   return (
     <div>
@@ -35,11 +31,7 @@ export default function Recipes() {
             color="text.primary"
             gutterBottom
           >
-            Recipe Page for{" "}
-            {state.cookies.length
-              ? state.cookies[id - 1].cookieName
-              : localStorageCookies[id - 1].cookieName}{" "}
-            Cookies
+            Recipe Page for {state.cookies[id - 1].cookieName} Cookies
           </Typography>
         </Container>
       </Box>
@@ -48,7 +40,7 @@ export default function Recipes() {
           {state.recipes.map((recipe) => (
             <Grid item key={recipe.recipeId} xs={12} sm={6} md={4}>
               <RecipeItem
-                imageUrl={currentCookie.length ? currentCookie : "placeholder"}
+                imageUrl={state.cookies[id - 1].cookieImageUrl}
                 description={recipe.description}
                 url={recipe.url}
                 name={recipe.websiteName}

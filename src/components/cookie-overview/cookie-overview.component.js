@@ -22,6 +22,7 @@ export default function CookieOverview({ cookieName, imageUrl, id }) {
         }
       );
       if (response.status === 200) {
+        localStorage.setItem("recipes", JSON.stringify(response.data));
         dispatch({
           type: "SET_RECIPES",
           payload: response.data,
@@ -34,6 +35,7 @@ export default function CookieOverview({ cookieName, imageUrl, id }) {
             }
           );
           if (likes.status === 200) {
+            localStorage.setItem("likedCount", JSON.stringify(likes.data));
             dispatch({
               type: "SET_LIKED",
               payload: likes.data,

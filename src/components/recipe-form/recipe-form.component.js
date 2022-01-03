@@ -63,6 +63,8 @@ export default function RecipeForm(props) {
         toast.success("Recipe Added");
         let currentRecipes = [...state.recipes];
         currentRecipes.push(response.data);
+        localStorage.setItem("recipes", JSON.stringify(currentRecipes));
+
         dispatch({
           type: "SET_RECIPES",
           payload: currentRecipes,

@@ -1,15 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { Context } from "../../pages/store/store.component";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
 import axios from "axios";
 
 export default function UserLiked({ id }) {
   const [state, dispatch] = useContext(Context);
-  const userId = JSON.parse(localStorage.getItem("user")).userId;
+  const userId = state.currentUser.userId;
   const findLiked = state.likedCount.filter((recipe) => {
     return recipe.recipeId === id && recipe.isLike === 1;
   });
@@ -37,38 +36,37 @@ export default function UserLiked({ id }) {
     isLike: 0,
   };
 
-  const [likeData, setLike] = useState(LIKED_STATE);
-  const [dislikeData, setDislike] = useState(DISLIKED_STATE);
-
   const onClick = async () => {
-    const data = likeData;
+    const data = LIKED_STATE;
     const response = await axios.post(
       "https://yearonewebapi.azurewebsites.net/api/cookies/liked",
       data
     );
     if (response.status === 200) {
-      let recipes = [...state.likedCount];
-      recipes.push(response.data);
-
+      console.log(response.data);
+      let likedRecipes = [...state.likedCount];
+      likedRecipes.push(response.data);
+      localStorage.setItem("likedCount", JSON.stringify(likedRecipes));
       dispatch({
         type: "SET_LIKED",
-        payload: recipes,
+        payload: likedRecipes,
       });
     }
   };
 
   const onDislikeClick = async () => {
-    const data = dislikeData;
+    const data = DISLIKED_STATE;
     const response = await axios.post(
       "https://yearonewebapi.azurewebsites.net/api/cookies/liked",
       data
     );
     if (response.status === 200) {
-      let recipes = [...state.likedCount];
-      recipes[findLikedIndex] = response.data;
+      let likedRecipes = [...state.likedCount];
+      likedRecipes[findLikedIndex] = response.data;
+      localStorage.setItem("likedCount", JSON.stringify(likedRecipes));
       dispatch({
         type: "SET_LIKED",
-        payload: recipes,
+        payload: likedRecipes,
       });
     }
   };

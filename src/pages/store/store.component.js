@@ -2,12 +2,15 @@ import React, { createContext, useReducer } from "react";
 import Reducer from "../reducer/reducer.component";
 
 const localUser = JSON.parse(localStorage.getItem("user"));
+const localStorageCookies = JSON.parse(localStorage.getItem("cookies"));
+const localStorageRecipes = JSON.parse(localStorage.getItem("recipes"));
+const localStorageLikes = JSON.parse(localStorage.getItem("likedCount"));
 
 const INITIAL_STATE = {
-  currentUser: localUser === undefined ? localUser : "",
-  cookies: [],
-  recipes: [],
-  likedCount: [],
+  currentUser: localUser,
+  cookies: localStorageCookies,
+  recipes: localStorageRecipes,
+  likedCount: localStorageLikes,
 };
 
 const Store = ({ children }) => {
