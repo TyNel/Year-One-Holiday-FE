@@ -32,7 +32,9 @@ export default function RecipeForm(props) {
     formik.resetForm();
     setOpen(false);
   };
+
   const id = props.id;
+  const buttonStyle = props.buttonStyle;
 
   const initialValues = {
     cookieType: id,
@@ -85,7 +87,11 @@ export default function RecipeForm(props) {
 
   return (
     <div>
-      <Button color="success" onClick={handleOpen}>
+      <Button
+        color="success"
+        variant={buttonStyle === "contained" ? buttonStyle : ""}
+        onClick={handleOpen}
+      >
         Add Recipe
       </Button>
       <Modal open={open} onClose={handleClose}>

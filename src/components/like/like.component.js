@@ -42,7 +42,7 @@ export default function UserLiked({ id }) {
       "https://yearonewebapi.azurewebsites.net/api/cookies/liked",
       data
     );
-    if (response.status === 200) {
+    if (response.status === 200 || response.status === 204) {
       console.log(response.data);
       let likedRecipes = [...state.likedCount];
       likedRecipes.push(response.data);

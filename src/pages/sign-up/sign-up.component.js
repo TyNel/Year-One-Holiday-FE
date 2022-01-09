@@ -51,8 +51,6 @@ export default function SignUp() {
       );
       if (response.status === 200) {
         toast.success("Register Successful");
-        console.log(response);
-        alert("Register Successful!");
         navigate("/signin");
       }
     } catch (error) {

@@ -1,16 +1,19 @@
 import React, { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import RecipeItem from "../../components/recipe-item/recipe-item.component";
 import Navbar from "../../components/navbar/navbar.component";
 import { Context } from "../store/store.component";
 import { useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import RecipeForm from "../../components/recipe-form/recipe-form.component";
 
 export default function Recipes() {
   const [state, dispatch] = useContext(Context);
   const { id } = useParams();
+  const style = "contained";
 
   return (
     <div>
@@ -33,6 +36,14 @@ export default function Recipes() {
           >
             Recipe Page for {state.cookies[id - 1].cookieName} Cookies
           </Typography>
+          <Stack
+            sx={{ pt: 4 }}
+            direction="row"
+            spacing={2}
+            justifyContent="center"
+          >
+            <RecipeForm buttonStyle={style} id={id} />
+          </Stack>
         </Container>
       </Box>
       <Container>
