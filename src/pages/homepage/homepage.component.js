@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -8,12 +8,32 @@ import CookieOverview from "../../components/cookie-overview/cookie-overview.com
 import Navbar from "../../components/navbar/navbar.component";
 import { Context } from "../store/store.component";
 import CookieForm from "../../components/cookie-form/cookie-form.component";
+import axios from "axios";
 
 export default function Homepage() {
   const [state, dispatch] = useContext(Context);
 
+  const getCookies = useCallback(async () => {
+    const response = await axios.get(
+      "https://yearonewebapi.azurewebsites.net/api/cookies/cookieType"
+    );
+    if (response.status === 200) {
+      localStorage.setItem("cookies", JSON.stringify(response.data));
+      dispatch({
+        type: "SET_COOKIES",
+        payload: response.data,
+      });
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (state.cookies === null) {
+      getCookies();
+    }
+  }, [getCookies, state.cookies]);
+
   return (
-    <div>
+    <>
       <Navbar position="relative" />
       <main>
         <Box
@@ -55,7 +75,7 @@ export default function Homepage() {
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
-            {state.cookies.map((cookie) => (
+            {state.cookies?.map((cookie) => (
               <Grid item key={cookie.cookieId} xs={12} sm={6} md={4}>
                 <CookieOverview
                   cookieName={cookie.cookieName}
@@ -67,6 +87,6 @@ export default function Homepage() {
           </Grid>
         </Container>
       </main>
-    </div>
+    </>
   );
 }

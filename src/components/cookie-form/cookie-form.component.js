@@ -66,7 +66,7 @@ export default function CookieForm() {
         handleClose();
       }
     } catch (error) {
-      toast.error("Cookie Add Error");
+      toast.error("Error adding cookie");
       console.log(error);
     }
   };

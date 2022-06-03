@@ -54,8 +54,7 @@ export default function SignUp() {
         navigate("/signin");
       }
     } catch (error) {
-      toast.error("Register Failed");
-      console.log(error);
+      toast.error(error.response.data.errorMessages[0]);
     }
   };
 

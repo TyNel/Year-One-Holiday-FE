@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import RecipeForm from "../../components/recipe-form/recipe-form.component";
 
 export default function Recipes() {
-  const [state, dispatch] = useContext(Context);
+  const [state] = useContext(Context);
   const { id } = useParams();
   const style = "contained";
 

@@ -4,9 +4,11 @@ import SignUp from "./pages/sign-up/sign-up.component";
 import HomePage from "./pages/homepage/homepage.component";
 import Recipes from "./pages/recipes/recipes.component";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "../src/pages/store/store.component.js";
 
 function App() {
-  let user = localStorage.getItem("user");
+  const [state] = useContext(Context);
   return (
     <Routes>
       <Route path="/" element={<Navigate replace to="/signin" />} />
@@ -14,11 +16,11 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route
         path="/homepage"
-        element={user === null ? <Navigate to="/signin" /> : <HomePage />}
+        element={state.currentUser ? <HomePage /> : <Navigate to="/signin" />}
       />
       <Route
         path="/recipes/:id"
-        element={user === null ? <Navigate to="/signin" /> : <Recipes />}
+        element={state.currentUser ? <Recipes /> : <Navigate to="/signin" />}
       />
     </Routes>
   );

@@ -24,45 +24,25 @@ export default function UserLiked({ id }) {
       recipe.isLike === 1 && recipe.userId === userId && recipe.recipeId === id
   );
 
-  const LIKED_STATE = {
-    recipesId: id,
-    userId: userId,
-    isLike: 1,
-  };
-
-  const DISLIKED_STATE = {
-    recipesId: id,
-    userId: userId,
-    isLike: 0,
-  };
-
   const onClick = async () => {
-    const data = LIKED_STATE;
-    const response = await axios.post(
-      "https://yearonewebapi.azurewebsites.net/api/cookies/liked",
-      data
-    );
-    if (response.status === 200 || response.status === 204) {
-      console.log(response.data);
-      let likedRecipes = [...state.likedCount];
-      likedRecipes.push(response.data);
-      localStorage.setItem("likedCount", JSON.stringify(likedRecipes));
-      dispatch({
-        type: "SET_LIKED",
-        payload: likedRecipes,
-      });
-    }
-  };
+    const userLiked = {
+      recipesId: id,
+      userId: userId,
+      isLike: null,
+    };
 
-  const onDislikeClick = async () => {
-    const data = DISLIKED_STATE;
+    findUserLiked.length === 1
+      ? (userLiked.isLike = 0)
+      : (userLiked.isLike = 1);
     const response = await axios.post(
       "https://yearonewebapi.azurewebsites.net/api/cookies/liked",
-      data
+      userLiked
     );
     if (response.status === 200) {
       let likedRecipes = [...state.likedCount];
-      likedRecipes[findLikedIndex] = response.data;
+      findUserLiked.length === 0
+        ? likedRecipes.push(response.data)
+        : (likedRecipes[findLikedIndex] = response.data);
       localStorage.setItem("likedCount", JSON.stringify(likedRecipes));
       dispatch({
         type: "SET_LIKED",
@@ -74,7 +54,7 @@ export default function UserLiked({ id }) {
   return (
     <Box sx={{ display: "flex" }}>
       {findUserLiked.length === 1 ? (
-        <ThumbUpIcon color="success" onClick={onDislikeClick} />
+        <ThumbUpIcon color="success" onClick={onClick} />
       ) : (
         <ThumbUpAltOutlinedIcon color="error" onClick={onClick} />
       )}

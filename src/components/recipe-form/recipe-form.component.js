@@ -24,7 +24,7 @@ const style = {
   spacing: 4,
 };
 
-export default function RecipeForm(props) {
+export default function RecipeForm({ id, buttonStyle }) {
   const [state, dispatch] = useContext(Context);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -32,9 +32,6 @@ export default function RecipeForm(props) {
     formik.resetForm();
     setOpen(false);
   };
-
-  const id = props.id;
-  const buttonStyle = props.buttonStyle;
 
   const initialValues = {
     cookieType: id,
@@ -66,7 +63,6 @@ export default function RecipeForm(props) {
         let currentRecipes = [...state.recipes];
         currentRecipes.push(response.data);
         localStorage.setItem("recipes", JSON.stringify(currentRecipes));
-
         dispatch({
           type: "SET_RECIPES",
           payload: currentRecipes,
