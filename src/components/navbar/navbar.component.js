@@ -24,12 +24,16 @@ export default function Navbar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "block" },
+              cursor: "pointer",
+            }}
             onClick={homePage}
           >
             Happy Holidays {user.firstName ? user.firstName : " "}
           </Typography>
-          <LogoutIcon onClick={onClick} />
+          <LogoutIcon onClick={onClick} sx={{ cursor: "pointer" }} />
         </Toolbar>
       </AppBar>
     </Box>
