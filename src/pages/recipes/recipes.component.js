@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -9,11 +9,36 @@ import { Context } from "../store/store.component";
 import { useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import RecipeForm from "../../components/recipe-form/recipe-form.component";
+import axios from "axios";
 
 export default function Recipes() {
-  const [state] = useContext(Context);
+  const [state, dispatch] = useContext(Context);
   const { id } = useParams();
   const style = "contained";
+
+  const getLikes = useCallback(async () => {
+    try {
+      const likes = await axios.get(
+        "https://yearonewebapi.azurewebsites.net/api/cookies/recipe/liked",
+        {
+          params: { id },
+        }
+      );
+      if (likes.status === 200) {
+        localStorage.setItem("likedCount", JSON.stringify(likes.data));
+        dispatch({
+          type: "SET_LIKED",
+          payload: likes.data,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    getLikes();
+  }, [getLikes]);
 
   return (
     <div>

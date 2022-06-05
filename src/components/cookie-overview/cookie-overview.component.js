@@ -27,24 +27,7 @@ export default function CookieOverview({ cookieName, imageUrl, id }) {
           type: "SET_RECIPES",
           payload: response.data,
         });
-        try {
-          const likes = await axios.get(
-            "https://yearonewebapi.azurewebsites.net/api/cookies/recipe/liked",
-            {
-              params: { id },
-            }
-          );
-          if (likes.status === 200) {
-            localStorage.setItem("likedCount", JSON.stringify(likes.data));
-            dispatch({
-              type: "SET_LIKED",
-              payload: likes.data,
-            });
-            navigate(`/recipes/${id}`);
-          }
-        } catch (error) {
-          console.log(error);
-        }
+        navigate(`/recipes/${id}`);
       }
     } catch (error) {
       console.log(error);

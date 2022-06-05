@@ -10,23 +10,27 @@ export default function UserLiked({ id }) {
   const [state, dispatch] = useContext(Context);
   const userId = state.currentUser.userId;
   const findLiked = state.likedCount.filter((recipe) => {
-    return recipe.recipeId === id && recipe.isLike === 1;
+    return recipe.likeParentId === id && recipe.isLike === 1;
   });
 
   const findUserLiked = state.likedCount.filter((recipe) => {
     return (
-      recipe.userId === userId && recipe.recipeId === id && recipe.isLike === 1
+      recipe.userId === userId &&
+      recipe.likeParentId === id &&
+      recipe.isLike === 1
     );
   });
 
   const findLikedIndex = state.likedCount.findIndex(
     (recipe) =>
-      recipe.isLike === 1 && recipe.userId === userId && recipe.recipeId === id
+      recipe.isLike === 1 &&
+      recipe.userId === userId &&
+      recipe.likeParentId === id
   );
 
   const onClick = async () => {
     const userLiked = {
-      recipesId: id,
+      likeParentId: id,
       userId: userId,
       isLike: null,
     };
