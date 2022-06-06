@@ -9,19 +9,18 @@ import axios from "axios";
 export default function UserLiked({ id }) {
   const [state, dispatch] = useContext(Context);
   const userId = state.currentUser.userId;
-  const findLiked = state.likedCount.filter((recipe) => {
-    return recipe.likeParentId === id && recipe.isLike === 1;
-  });
 
-  const findUserLiked = state.likedCount.filter((recipe) => {
-    return (
+  const findLikedCount = state.likedCount?.filter(
+    (recipe) => recipe.likeParentId === id && recipe.isLike === 1
+  );
+  const findUserLiked = state.likedCount?.some(
+    (recipe) =>
       recipe.userId === userId &&
       recipe.likeParentId === id &&
       recipe.isLike === 1
-    );
-  });
+  );
 
-  const findLikedIndex = state.likedCount.findIndex(
+  const findLikedIndex = state.likedCount?.findIndex(
     (recipe) =>
       recipe.isLike === 1 &&
       recipe.userId === userId &&
@@ -35,16 +34,18 @@ export default function UserLiked({ id }) {
       isLike: null,
     };
 
-    findUserLiked.length === 1
-      ? (userLiked.isLike = 0)
-      : (userLiked.isLike = 1);
+    //if recipe is already liked by user set state to dislike
+    findUserLiked === true ? (userLiked.isLike = 0) : (userLiked.isLike = 1);
+
     const response = await axios.post(
       "https://yearonewebapi.azurewebsites.net/api/cookies/liked",
       userLiked
     );
     if (response.status === 200) {
       let likedRecipes = [...state.likedCount];
-      findUserLiked.length === 0
+
+      //if user hasn't voted for recipe yet, push to state. Otherwise update
+      findUserLiked === false
         ? likedRecipes.push(response.data)
         : (likedRecipes[findLikedIndex] = response.data);
       localStorage.setItem("likedCount", JSON.stringify(likedRecipes));
@@ -57,17 +58,17 @@ export default function UserLiked({ id }) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      {findUserLiked.length === 1 ? (
+      {findUserLiked ? (
         <ThumbUpIcon color="success" onClick={onClick} />
       ) : (
         <ThumbUpAltOutlinedIcon color="error" onClick={onClick} />
       )}
       <Typography
-        color={findUserLiked.length === 1 ? "success" : "error"}
+        color={findUserLiked ? "success" : "error"}
         sx={{ ml: "3px" }}
         variant="h6"
       >
-        {findLiked.length}
+        {findLikedCount.length}
       </Typography>
     </Box>
   );

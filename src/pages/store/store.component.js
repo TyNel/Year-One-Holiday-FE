@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   currentUser: localUser,
   cookies: localStorageCookies,
   recipes: localStorageRecipes,
-  likedCount: localStorageLikes,
+  likedCount: localStorageLikes ? localStorageLikes : [],
 };
 
 const Store = ({ children }) => {
